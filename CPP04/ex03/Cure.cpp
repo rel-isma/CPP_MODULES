@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:21:56 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/12/20 12:05:43 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:09:24 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ Cure::Cure() : AMateria("cure") {}
 Cure::~Cure() {}
 
 Cure::Cure(const Cure &other) : AMateria(other) {
+    
 }
 
 Cure &Cure::operator=(const Cure &other) {
