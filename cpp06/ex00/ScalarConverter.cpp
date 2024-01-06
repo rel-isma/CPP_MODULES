@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:07:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/06 21:34:15 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/06 22:07:58 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <sstream>
 
 void ScalarConverter::convert(const std::string& str) {
-    std::cout << "Original literal: " << str << std::endl << std::endl;
 
     convertChar(str);
     convertInt(str);
@@ -30,7 +29,8 @@ void ScalarConverter::convertChar(const std::string& str) {
     try {
         if (str == "nan" || str == "+inf" || str == "-inf") {
             throw "char: impossible";
-        } else 
+        } 
+        else 
         {
             char* end;
             double result = std::strtod(str.c_str(), &end);
@@ -40,7 +40,7 @@ void ScalarConverter::convertChar(const std::string& str) {
             }
             else if (result == 0 && !(str.size() > 1))
                 result = static_cast<int>(end[0]);
-            else if (isDisplayableChar(result))
+            if (isDisplayableChar(result))
                 std::cout << "char: '" << static_cast<char>(result) << "'" << std::endl;
             else
                 throw "char: Non displayable";
