@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:07:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/05 22:31:55 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/06 20:00:45 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,38 +30,47 @@ void ScalarConverter::convertChar(const std::string& str) {
     try {
         if (str == "nan" || str == "+inf" || str == "-inf") {
             throw "char: impossible";
-        }
+        } else 
+        {
+            char* end;
+            double result = std::strtod(str.c_str(), &end);
 
-        std::stringstream ss(str);
-        int result;
-        ss >> result;
-        if (ss.fail()) {
-            throw "char: impossible";
+            if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
+                throw "char: impossible";
+            }
+            if (result == 0)
+                result = static_cast<int>(end[0]);
+            if (isDisplayableChar(result))
+                std::cout << "char: '" << static_cast<char>(result) << "'" << std::endl;
+            else
+                throw "char: Non displayable";
         }
-
-        if (isDisplayableChar(result))
-            std::cout << "char: '" << static_cast<char>(result) << "'" << std::endl;
-        else
-            throw "char: Non displayable";
     } catch (const char* e) {
         std::cout << e << std::endl;
     }
 }
+
 
 void ScalarConverter::convertInt(const std::string& str) {
     try {
         if (str == "nan" || str == "+inf" || str == "-inf") {
             throw "int: impossible";
         }
-
-        std::stringstream ss(str);
-        int result;
-        ss >> result;
-        if (ss.fail()) {
+        
+        char* end;
+        int intResult;
+        double result = std::strtod(str.c_str(), &end);
+        
+        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
             throw "int: impossible";
         }
-
-        std::cout << "int: " << result << std::endl;
+        if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
+            throw "int: impossible";
+        if (result == 0 && *end)
+            intResult = static_cast<int>(end[0]);
+        else
+            intResult = static_cast<int>(result);
+        std::cout << "int: " << intResult << std::endl;
     } catch (const char* e) {
         std::cout << e << std::endl;
     }
@@ -70,33 +79,43 @@ void ScalarConverter::convertInt(const std::string& str) {
 
 void ScalarConverter::convertFloat(const std::string& str) {
     try {
-        std::stringstream ss(str);
-        float result;
-        // std::cout << "str == " << ss.str() << std::endl;
-        ss >> result;
-        if (ss.fail()) {
+        
+        char* end;
+        float floatResult;
+        double result = std::strtod(str.c_str(), &end);
+
+        std::string cv = end;
+        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
             throw "float: impossible";
         }
-
-        std::cout << "float: " << std::fixed << std::setprecision(1) << result << "f" << std::endl;
+        if (result == 0)
+            floatResult = static_cast<float>(end[0]);
+        else
+            floatResult = static_cast<float>(result);
+        std::cout << "float: " << std::fixed << std::setprecision(1) << floatResult << "f" << std::endl;
     } catch (const char* e) {
         std::cout << e << std::endl;
     }
 }
 
+
 void ScalarConverter::convertDouble(const std::string& str) {
     try {
-        std::stringstream ss(str);
-        double result;
-        ss >> result;
-        if (ss.fail()) {
+        
+        char* end;
+        double result = std::strtod(str.c_str(), &end);
+
+        std::string cv = end;
+        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
             throw "double: impossible";
         }
-
+        if (result == 0) {
+            result = static_cast<double>(end[0]);
+        }
         std::cout << "double: " << std::fixed << std::setprecision(1) << result << std::endl;
-    } catch (const char* e) {
-        std::cout << e << std::endl;
-    }
+        } catch (const char* e) {
+            std::cout << e << std::endl;
+        }
 }
 
 bool ScalarConverter::isDisplayableChar(int value) {
