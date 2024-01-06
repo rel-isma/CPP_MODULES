@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:07:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/06 20:00:45 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/06 21:34:15 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void ScalarConverter::convertChar(const std::string& str) {
             if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
                 throw "char: impossible";
             }
-            if (result == 0)
+            else if (result == 0 && !(str.size() > 1))
                 result = static_cast<int>(end[0]);
-            if (isDisplayableChar(result))
+            else if (isDisplayableChar(result))
                 std::cout << "char: '" << static_cast<char>(result) << "'" << std::endl;
             else
                 throw "char: Non displayable";
@@ -53,7 +53,7 @@ void ScalarConverter::convertChar(const std::string& str) {
 
 void ScalarConverter::convertInt(const std::string& str) {
     try {
-        if (str == "nan" || str == "+inf" || str == "-inf") {
+        if (str == "nan" || str == "nanf" || str == "+inf" || str == "-inf" || str == "inff" ) {
             throw "int: impossible";
         }
         
@@ -64,12 +64,14 @@ void ScalarConverter::convertInt(const std::string& str) {
         if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
             throw "int: impossible";
         }
-        if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
-            throw "int: impossible";
-        if (result == 0 && *end)
+        if (result == 0 && !(str.size() > 1))
             intResult = static_cast<int>(end[0]);
         else
+        {
+            if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
+                throw "int: impossible";
             intResult = static_cast<int>(result);
+        }
         std::cout << "int: " << intResult << std::endl;
     } catch (const char* e) {
         std::cout << e << std::endl;
@@ -88,7 +90,7 @@ void ScalarConverter::convertFloat(const std::string& str) {
         if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
             throw "float: impossible";
         }
-        if (result == 0)
+        if (result == 0 && !(str.size() > 1))
             floatResult = static_cast<float>(end[0]);
         else
             floatResult = static_cast<float>(result);
@@ -109,7 +111,7 @@ void ScalarConverter::convertDouble(const std::string& str) {
         if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
             throw "double: impossible";
         }
-        if (result == 0) {
+        if (result == 0 && !(str.size() > 1)) {
             result = static_cast<double>(end[0]);
         }
         std::cout << "double: " << std::fixed << std::setprecision(1) << result << std::endl;
