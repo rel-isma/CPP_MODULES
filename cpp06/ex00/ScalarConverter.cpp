@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:07:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/06 22:07:58 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:29:01 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void ScalarConverter::convertChar(const std::string& str) {
             if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
                 throw "char: impossible";
             }
-            else if (result == 0 && !(str.size() > 1))
+            else if (result == 0)
                 result = static_cast<int>(end[0]);
             if (isDisplayableChar(result))
                 std::cout << "char: '" << static_cast<char>(result) << "'" << std::endl;
