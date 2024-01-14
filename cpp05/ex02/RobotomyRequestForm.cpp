@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:39:00 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/12/28 12:50:12 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:22:14 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <cstdlib>
 #include <ctime>
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("Default Shrubbery Creation", 100, 120), target("DefaultTarget") {}
+RobotomyRequestForm::RobotomyRequestForm() : AForm("Default Shrubbery Creation", 72, 45), target("DefaultTarget") {}
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
     : AForm("Robotomy Request", 72, 45), target(target) {

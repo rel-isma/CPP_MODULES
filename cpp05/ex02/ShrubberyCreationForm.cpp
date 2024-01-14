@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 13:28:53 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/12/28 12:46:28 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:29:28 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
     if (executor.getGrade() > this->getgradeToExecute())
         throw AForm::GradeTooLowException();
     std::ofstream outfile(target + "_shrubbery");
+    if (!outfile.good())
+        throw "failed to open the file";
     
     outfile << "          &&& &&  & &&\n"
             << "      && &\\/&\\|& ()|/ @, &&\n"

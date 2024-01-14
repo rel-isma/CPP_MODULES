@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 12:20:19 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/07 12:18:14 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/11 11:51:36 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ const char* Bureaucrat::GradeTooHighException::what() const throw() {
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
     return "Grade is too low";
 }
-
 
 const std::string& Bureaucrat::getName() const {
     

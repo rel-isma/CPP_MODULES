@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 11:51:41 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/12/28 12:47:00 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:36:25 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ class AForm {
         void beSigned(const Bureaucrat& bureaucrat);
 
         virtual void execute(const Bureaucrat& executor) const = 0;
-
 };
 
 std::ostream& operator<<(std::ostream& os, const AForm& form);

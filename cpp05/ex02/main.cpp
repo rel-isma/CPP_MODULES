@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 15:22:21 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/12/28 12:56:16 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:29:30 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int main() {
     try {
-        Bureaucrat john("John", 50);
+        Bureaucrat john("John", 1);
         ShrubberyCreationForm shrubForm("Garden");
         RobotomyRequestForm robotomyForm("Robot");
         PresidentialPardonForm pardonForm("Criminal");
@@ -40,7 +40,10 @@ int main() {
     } catch (std::exception& e) {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
-
+    catch(const char* e)
+    {
+        std::cerr << "Exception: " << e << std::endl;
+    }
     return 0;
 }
 

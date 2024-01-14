@@ -1,32 +1,24 @@
 #include <iostream>
 
-class Animal
-{
+class Base {
 public:
-    void eat()
-    {
-        std::cout << "I can eat!" << std::endl;
-    }
-    virtual void sleep()
-    {
-        std::cout << "khach!" << std::endl;
-    }
+    virtual ~Base() {}
 };
 
-class Dog : public Animal
-{
-public:
-   virtual void sleep()
-    {
-        std::cout << "3aw 3aw!" << std::endl;
+class Derived : public Base {};
+
+int main() {
+    Base derivedObj;
+    Base& baseRef = derivedObj;
+
+    try {
+        Derived& derivedRef = dynamic_cast<Derived&>(baseRef);
+        // Casting successful
+        std::cout << "Casting successful." << std::endl;
+    } catch (const std::bad_cast& e) {
+        // Casting failed
+        std::cout << "Casting failed: " << e.what() << std::endl;
     }
-};
-
-int main()
-{
-    Dog myDog;
-
-    myDog.sleep();
 
     return 0;
 }

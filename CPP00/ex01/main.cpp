@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:54:01 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/09/30 12:33:40 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/10 23:15:39 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    searchPhoneBook(Phonebook *phonebook)
     size = phonebook->getSize();
     if (phonebook->getSize() > 8) {
        size = 8;
-    }
+    } // |           |
     for (int i = 0; i < size; ++i) 
     {
         std::cout << "|     " << i + 1 << "     |";

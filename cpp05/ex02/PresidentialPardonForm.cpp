@@ -6,13 +6,13 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:43:19 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/12/28 12:56:02 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:14:07 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : AForm("Default Shrubbery Creation", 100, 120), target("DefaultTarget") {}
+PresidentialPardonForm::PresidentialPardonForm() : AForm("Default Shrubbery Creation", 25, 5), target("DefaultTarget") {}
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
     : AForm("Presidential Pardon", 25, 5), target(target) {}
