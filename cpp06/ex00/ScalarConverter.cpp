@@ -6,10 +6,9 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:07:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/07 18:29:01 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:08:09 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ScalarConverter.hpp"
 #include <cstdlib>
@@ -17,25 +16,46 @@
 #include <iomanip>
 #include <sstream>
 
-void ScalarConverter::convert(const std::string& str) {
+ScalarConverter::ScalarConverter(void)
+{
+}
 
+ScalarConverter::ScalarConverter(const ScalarConverter &src)
+{
+    *this = src;
+}
+
+ScalarConverter::~ScalarConverter(void) {}
+
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &rhs)
+{
+    (void)rhs;
+    return *this;
+}
+
+void ScalarConverter::convert(const std::string &str)
+{
     convertChar(str);
     convertInt(str);
     convertFloat(str);
     convertDouble(str);
 }
 
-void ScalarConverter::convertChar(const std::string& str) {
-    try {
-        if (str == "nan" || str == "+inf" || str == "-inf") {
-            throw "char: impossible";
-        } 
-        else 
+void ScalarConverter::convertChar(const std::string &str)
+{
+    try
+    {
+        if (str == "nan" || str == "+inf" || str == "-inf")
         {
-            char* end;
+            throw "char: impossible";
+        }
+        else
+        {
+            char *end;
             double result = std::strtod(str.c_str(), &end);
 
-            if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
+            if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f'))
+            {
                 throw "char: impossible";
             }
             else if (result == 0)
@@ -45,23 +65,28 @@ void ScalarConverter::convertChar(const std::string& str) {
             else
                 throw "char: Non displayable";
         }
-    } catch (const char* e) {
+    }
+    catch (const char *e)
+    {
         std::cout << e << std::endl;
     }
 }
 
-
-void ScalarConverter::convertInt(const std::string& str) {
-    try {
-        if (str == "nan" || str == "nanf" || str == "+inf" || str == "-inf" || str == "inff" ) {
+void ScalarConverter::convertInt(const std::string &str)
+{
+    try
+    {
+        if (str == "nan" || str == "nanf" || str == "+inf" || str == "-inf" || str == "inff")
+        {
             throw "int: impossible";
         }
-        
-        char* end;
+
+        char *end;
         int intResult;
         double result = std::strtod(str.c_str(), &end);
-        
-        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
+
+        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f'))
+        {
             throw "int: impossible";
         }
         if (result == 0 && !(str.size() > 1))
@@ -73,21 +98,24 @@ void ScalarConverter::convertInt(const std::string& str) {
             intResult = static_cast<int>(result);
         }
         std::cout << "int: " << intResult << std::endl;
-    } catch (const char* e) {
+    }
+    catch (const char *e)
+    {
         std::cout << e << std::endl;
     }
 }
 
-
-void ScalarConverter::convertFloat(const std::string& str) {
-    try {
-        
-        char* end;
+void ScalarConverter::convertFloat(const std::string &str)
+{
+    try
+    {
+        char *end;
         float floatResult;
         double result = std::strtod(str.c_str(), &end);
 
         std::string cv = end;
-        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
+        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f'))
+        {
             throw "float: impossible";
         }
         if (result == 0 && !(str.size() > 1))
@@ -95,31 +123,38 @@ void ScalarConverter::convertFloat(const std::string& str) {
         else
             floatResult = static_cast<float>(result);
         std::cout << "float: " << std::fixed << std::setprecision(1) << floatResult << "f" << std::endl;
-    } catch (const char* e) {
+    }
+    catch (const char *e)
+    {
         std::cout << e << std::endl;
     }
 }
 
-
-void ScalarConverter::convertDouble(const std::string& str) {
-    try {
-        
-        char* end;
+void ScalarConverter::convertDouble(const std::string &str)
+{
+    try
+    {
+        char *end;
         double result = std::strtod(str.c_str(), &end);
 
         std::string cv = end;
-        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f')) {
+        if ((*end != '\0' && end[1] != '\0') || (*end != '\0' && result && *end != 'f'))
+        {
             throw "double: impossible";
         }
-        if (result == 0 && !(str.size() > 1)) {
+        if (result == 0 && !(str.size() > 1))
+        {
             result = static_cast<double>(end[0]);
         }
         std::cout << "double: " << std::fixed << std::setprecision(1) << result << std::endl;
-        } catch (const char* e) {
-            std::cout << e << std::endl;
-        }
+    }
+    catch (const char *e)
+    {
+        std::cout << e << std::endl;
+    }
 }
 
-bool ScalarConverter::isDisplayableChar(int value) {
+bool ScalarConverter::isDisplayableChar(int value)
+{
     return (value >= 32 && value <= 126);
 }

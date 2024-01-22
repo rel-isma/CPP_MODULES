@@ -1,24 +1,28 @@
 #include <iostream>
 
-class Base {
-public:
-    virtual ~Base() {}
+class A
+{
+    private:
+        int a;
+    public:
+        A() { a = 15;}
+        virtual ~A() {};
 };
 
-class Derived : public Base {};
+class B : public A
+{
+    private:
+        int a;
+    public:
+        B() { a = 15;}
+};
 
 int main() {
-    Base derivedObj;
-    Base& baseRef = derivedObj;
-
-    try {
-        Derived& derivedRef = dynamic_cast<Derived&>(baseRef);
-        // Casting successful
-        std::cout << "Casting successful." << std::endl;
-    } catch (const std::bad_cast& e) {
-        // Casting failed
-        std::cout << "Casting failed: " << e.what() << std::endl;
-    }
-
+    A a;
+    B *b = static_cast<B*>(&a);
+    B *bd = dynamic_cast<B*>(&a);
+    std::cout << b << "\n";
+    std::cout << bd << "\n";
     return 0;
 }
+

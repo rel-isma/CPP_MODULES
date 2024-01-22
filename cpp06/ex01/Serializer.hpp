@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 21:36:43 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/08 21:47:40 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:39:14 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 #include <cstdint>
 #include "Data.hpp"
 
-class Serializer {
-public:
-    Serializer();
-    Serializer(const Serializer& other);
-    Serializer& operator=(const Serializer& other);
-    ~Serializer();
-    static uintptr_t serialize(Data* ptr);
-    static Data* deserialize(uintptr_t raw);
+class Serializer 
+{
+    private:
+        Serializer();
+        Serializer(const Serializer& other);
+        Serializer& operator=(const Serializer& other);
+        ~Serializer();
+    public:
+        static uintptr_t serialize(Data* ptr);
+        static Data* deserialize(uintptr_t raw);
 };
 
 #endif

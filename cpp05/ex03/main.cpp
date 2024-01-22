@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 15:22:21 by rel-isma          #+#    #+#             */
-/*   Updated: 2023/12/30 13:31:27 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/16 08:44:34 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,16 @@
 #include "AForm.hpp"
 
 
+void f()
+{
+    system("leaks bin3");
+}
+
 int main() 
 {
-    try {
+    atexit(f);
+    try 
+    {
         Bureaucrat bureaucrat("John", 50);
 
         ShrubberyCreationForm shrubberyForm("Garden");
@@ -32,13 +39,15 @@ int main()
         Intern intern;
         AForm* newForm = intern.makeForm("shrubbery creation", "Backyard");
 
-        if (newForm) {
+        if (newForm)
+        {
             bureaucrat.signForm(*newForm);
             bureaucrat.executeForm(*newForm);
             delete newForm;
         }
 
-    } catch (std::exception& e) {
+    } catch (std::exception& e) 
+    {
         std::cerr << "Exception: " << e.what() << std::endl;
     }
 

@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 10:28:24 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/13 15:25:57 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/14 18:46:07 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,31 +57,28 @@ void identify(Base &p)
         A& aRef = dynamic_cast<A &>(p);
         (void)aRef;
         std::cout << "A" << std::endl;
-    }
-    catch (const std::bad_cast &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
 
-    try
-    {
-        B& bRef = dynamic_cast<B &>(p);
-        (void)bRef;
-        std::cout << "B" << std::endl;
     }
     catch (const std::bad_cast &e)
     {
-        std::cout << e.what() << std::endl;
+         try
+        {
+            B& bRef = dynamic_cast<B &>(p);
+            (void)bRef;
+            std::cout << "B" << std::endl;
+        }
+        catch (const std::bad_cast &e)
+        {
+             try
+            {
+                C& cRef = dynamic_cast<C &>(p);
+                (void)cRef;
+                std::cout << "C" << std::endl;
+            }
+            catch (const std::bad_cast &e)
+            {
+            }
+        }
     }
-
-    try
-    {
-        C& cRef = dynamic_cast<C &>(p);
-        (void)cRef;
-        std::cout << "C" << std::endl;
-    }
-    catch (const std::bad_cast &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
+    
 }
