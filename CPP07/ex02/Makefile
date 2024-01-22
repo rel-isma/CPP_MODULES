@@ -6,13 +6,13 @@
 #    By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/21 19:04:05 by rel-isma          #+#    #+#              #
-#    Updated: 2024/01/22 13:43:35 by rel-isma         ###   ########.fr        #
+#    Updated: 2024/01/22 16:32:58 by rel-isma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 CXX = c++
-CXXHEDAER =  Array.hpp
+CXXHEDAER =  Array.hpp Array.tpp
 SOURCES = main.cpp
 OBJECTS = $(SOURCES:%.cpp=obj/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:53:00 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/22 14:33:07 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:28:48 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ template <typename T>
 Array<T>::Array() : elements(NULL), length(0) {}
 
 template <typename T>
-Array<T>::Array(unsigned int size) : elements(NULL), length(0)
+Array<T>::Array(unsigned int size) : elements(NULL), length(size)
 {
-    allocateMemory(size);
+    allocateMemory();
 }
 
 template <typename T>
@@ -32,9 +32,9 @@ Array<T> &Array<T>::operator=(const Array &other)
 {
     if (this != &other)
     {
-        unsigned int newSize = other.size();
-        allocateMemory(newSize);
-        for (unsigned int i = 0; i < newSize; ++i) {
+        length = other.size();
+        allocateMemory();
+        for (unsigned int i = 0; i < length; ++i) {
             elements[i] = other.elements[i];
         }
     }
@@ -64,11 +64,9 @@ unsigned int Array<T>::size() const
 }
 
 template <typename T>
-void Array<T>::allocateMemory(unsigned int size)
+void Array<T>::allocateMemory()
 {
-    delete[] elements;
-
-    elements = new T[size];
-    length = size;
+    // delete[] elements;
+    elements = new T[length];
 }
 

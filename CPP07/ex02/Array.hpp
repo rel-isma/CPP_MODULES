@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:52:09 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/22 14:32:37 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:24:14 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class Array
         T *elements;
         unsigned int length;
 
-        void allocateMemory(unsigned int size);
+        void allocateMemory();
     public:
         Array();
         Array(unsigned int size);
