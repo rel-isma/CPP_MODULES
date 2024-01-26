@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:53:00 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/22 17:28:48 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:39:35 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ unsigned int Array<T>::size() const
 template <typename T>
 void Array<T>::allocateMemory()
 {
-    // delete[] elements;
+    delete[] elements;
     elements = new T[length];
 }
 

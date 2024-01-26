@@ -1,52 +1,32 @@
+// generate algorithm example
+#include <iostream>	 // std::cout
+#include <algorithm> // std::generate
+#include <vector>	 // std::vector
+#include <ctime>	 // std::time
+#include <cstdlib>	 // std::rand, std::srand
 
-#include <iostream>
+// function generator:
+int RandomNumber() { return (std::rand() % 100); }
 
-
-#ifndef INTARRAY_H
-#define INTARRAY_H
-
-#include <cassert>
-
-class IntArray
+struct c_unique
 {
-private:
-    int m_length{};
-    int* m_data{};
+	int current;
+	c_unique() { current = 0; }
+	int operator()() { return ++current; }
+} UniqueNumber;
 
-public:
+int main()
+{
+	std::srand(unsigned(std::time(0)));
 
-    IntArray(int length)
-    {
-        assert(length > 0);
-        m_data = new int[length]{};
-        m_length = length;
-    }
+	std::vector<int> myvector(8);
 
-    // We don't want to allow copies of IntArray to be created.
-    IntArray(const IntArray&) = delete;
-    IntArray& operator=(const IntArray&) = delete;
+	std::generate(myvector.begin(), myvector.end(), RandomNumber);
 
-    ~IntArray()
-    {
-        delete[] m_data;
-    }
+	std::cout << "myvector contains:";
+	for (std::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
 
-    void erase()
-    {
-        delete[] m_data;
-        // We need to make sure we set m_data to 0 here, otherwise it will
-        // be left pointing at deallocated memory!
-        m_data = nullptr;
-        m_length = 0;
-    }
-
-    int& operator[](int index)
-    {
-        assert(index >= 0 && index < m_length);
-        return m_data[index];
-    }
-
-    int getLength() const { return m_length; }
-};
-
-#endif
+	return 0;
+}

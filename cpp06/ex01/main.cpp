@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 12:59:46 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/16 09:44:02 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:44:53 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 int main() 
 {
     Data originalData(42, 'A');
+
+    std::cout << "sizeof: " << sizeof(originalData) << std::endl;
 
     uintptr_t serializedPtr = Serializer::serialize(&originalData);
 

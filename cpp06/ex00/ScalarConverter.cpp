@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:07:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/16 09:08:09 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:04:29 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void ScalarConverter::convertInt(const std::string &str)
         }
 
         char *end;
+        // 12
         int intResult;
         double result = std::strtod(str.c_str(), &end);
 
