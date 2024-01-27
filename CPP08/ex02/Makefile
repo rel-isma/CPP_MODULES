@@ -6,7 +6,7 @@
 #    By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/26 18:03:29 by rel-isma          #+#    #+#              #
-#    Updated: 2024/01/26 18:20:37 by rel-isma         ###   ########.fr        #
+#    Updated: 2024/01/26 22:25:02 by rel-isma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CXXHEDAER =  MutantStack.hpp MutantStack.tpp
 SOURCES = main.cpp 
 OBJECTS = $(SOURCES:%.cpp=obj/%.o)
 
-NAME = Mutated
+NAME = mutantStack
 
 all: $(NAME)
 

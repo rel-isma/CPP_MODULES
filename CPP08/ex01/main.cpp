@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:12:54 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/26 17:56:07 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/27 13:06:02 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,16 @@ int main()
         std::vector<int> moreNumbers(10);
         std::generate(moreNumbers.begin(), moreNumbers.end(), RandomNumber);
 
+        std::cout << std::endl;
         std::cout << "myvector contains:";
 	    for (std::vector<int>::iterator it = moreNumbers.begin(); it != moreNumbers.end(); ++it)
 		    std::cout << ' ' << *it;
 	    std::cout << std::endl;
 
+        
         sp2.addNumbers(moreNumbers);
-        std::cout << "Shortest Span after adding more numbers: " << sp2.shortestSpan() << std::endl;
-        std::cout << "Longest Span after adding more numbers: " << sp2.longestSpan() << std::endl;
+        std::cout << "Shortest Span: " << sp2.shortestSpan() << std::endl;
+        std::cout << "Longest Span: " << sp2.longestSpan() << std::endl;
 
     }
     catch (const std::exception& e)

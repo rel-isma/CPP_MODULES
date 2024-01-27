@@ -1,32 +1,23 @@
-// generate algorithm example
-#include <iostream>	 // std::cout
-#include <algorithm> // std::generate
-#include <vector>	 // std::vector
-#include <ctime>	 // std::time
-#include <cstdlib>	 // std::rand, std::srand
+#include <iostream>
+#include <deque>
 
-// function generator:
-int RandomNumber() { return (std::rand() % 100); }
+int main() {
+    std::deque<int> myDeque;
 
-struct c_unique
-{
-	int current;
-	c_unique() { current = 0; }
-	int operator()() { return ++current; }
-} UniqueNumber;
+	for (int i = 0; i < 5; i++)
+		myDeque.push_back(i);
 
-int main()
-{
-	std::srand(unsigned(std::time(0)));
+    // Using const_iterator to iterate over the deque
+    std::deque<int>::const_iterator it = myDeque.begin();
+    std::deque<int>::const_iterator end = myDeque.end();
 
-	std::vector<int> myvector(8);
+    while (it != end) {
+        std::cout << *it << " ";
+        ++it;
+    }
 
-	std::generate(myvector.begin(), myvector.end(), RandomNumber);
+    std::cout << std::endl;
 
-	std::cout << "myvector contains:";
-	for (std::vector<int>::iterator it = myvector.begin(); it != myvector.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
-
-	return 0;
+    return 0;
 }
+
