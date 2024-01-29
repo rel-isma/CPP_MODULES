@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:13:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/28 23:29:42 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:22:15 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,6 @@ void BitcoinExchange::readExchangeRates(const std::string &exchangeRatesFilename
     file.close();
 }
 
-// double BitcoinExchange::getExchangeRate(const std::string &date) const
-// {
-//     std::map<std::string, double>::const_iterator it = exchangeRates.lower_bound(date);
-
-//     if (it == exchangeRates.begin() && it->first > date) {
-//         return it->second;
-//     }
-
-//     return (it != exchangeRates.begin()) ? (--it)->second : it->second;
-// }
-
 void BitcoinExchange::processInput()
 {
     
@@ -77,6 +66,127 @@ void BitcoinExchange::processInput()
     }
 }
 
+void ft_check_year(std::string year)
+{
+    if (year.size() != 4)
+    {
+        throw std::invalid_argument("bad input => " + year);
+    }
+    if (std::atoi(year.c_str()) < 2009 || std::atoi(year.c_str()) > 2022)
+    {
+        throw std::invalid_argument("bad input => " + year);
+    }
+}
+void ft_check_month(std::string month)
+{
+    if (month.size() != 2)
+    {
+        throw std::invalid_argument("bad input => " + month);
+    }
+    if (std::atoi(month.c_str()) < 1 || std::atoi(month.c_str()) > 12)
+    {
+        throw std::invalid_argument("bad input => " + month);
+    }
+}
+void ft_check_day(std::string day , std::string month, std::string date)
+{
+    if (day.size() != 2)
+    {
+        throw std::invalid_argument("bad input => " + day);
+    }
+    if (std::atoi(day.c_str()) < 1 || std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 1 && std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 2 && std::atoi(day.c_str()) > 29)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 3 && std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 4 && std::atoi(day.c_str()) > 30)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 5 && std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 6 && std::atoi(day.c_str()) > 30)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 7 && std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 8 && std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 9 && std::atoi(day.c_str()) > 30)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 10 && std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 11 && std::atoi(day.c_str()) > 30)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+    if (std::atoi(month.c_str()) == 12 && std::atoi(day.c_str()) > 31)
+    {
+        throw std::invalid_argument("bad input => " + date);
+    }
+}
+void ft_check_date(std::string date)
+{
+    std::string year;
+    std::string month;
+    std::string day;
+    std::stringstream iss(date);
+    
+    std::getline(iss, year, '-');
+    std::getline(iss, month, '-');
+    std::getline(iss, day, '-');
+
+    ft_check_year(year);
+    ft_check_month(month);
+    ft_check_day(day, month, date);
+}
+
+
+double BitcoinExchange::getExchangeRate(const std::string &dateStr) const
+{
+    auto it = exchangeRates.find(dateStr);
+    if (it != exchangeRates.end()) {
+        return it->second;
+    }
+    auto lowerBound = exchangeRates.lower_bound(dateStr);
+    if (lowerBound != exchangeRates.begin()) {
+        --lowerBound;
+        int daysDifference = getDaysDifference(lowerBound->first, dateStr);
+        if (daysDifference <= 7) {
+            std::cout << "Using closest lower date: " << lowerBound->first << std::endl;
+            return lowerBound->second;
+        }
+    }
+    throw std::out_of_range("Exchange rate not available for the specified date: " + dateStr);
+}
+
+int getDaysDifference(const std::string &date1, const std::string &date2)
+{
+    
+    return 30;
+}
 
 void BitcoinExchange::processLine(const std::string &line)
 {
@@ -85,15 +195,25 @@ void BitcoinExchange::processLine(const std::string &line)
     std::string valueStr;
     double value;
 
-    // 2011-01-03 | 2
+    if (line.find('|') == std::string::npos)
+    {
+        throw std::invalid_argument("bad input => " + line);
+    }
+    
     if (std::getline(iss, dateStr, '|'))
     {
-        // strtrim
+        if (dateStr.back() != ' ')
+            throw std::invalid_argument("bad input => " + line);
+        
         dateStr.erase(0, dateStr.find_first_not_of(" \t\n\r\f\v"));
         dateStr.erase(dateStr.find_last_not_of(" \t\n\r\f\v") + 1);
-
+        ft_check_date(dateStr);
         if (std::getline(iss, valueStr))
         {
+            if (valueStr.front() != ' ')
+                throw std::invalid_argument("bad input => " + line);
+            
+            // std::cout << "valueStr: |" << valueStr << "|" << std::endl;
             std::stringstream valueIss(valueStr);
             if (!(valueIss >> value)) {
                 throw std::invalid_argument("bad input => " + dateStr + valueStr);
@@ -105,7 +225,6 @@ void BitcoinExchange::processLine(const std::string &line)
             if (value <= 0) {
                 throw std::out_of_range("not a positive number.");
             }
-            std::cout << "Date: " << dateStr << ", Value: " << value << std::endl;
         } 
         else
         {
@@ -116,8 +235,8 @@ void BitcoinExchange::processLine(const std::string &line)
     {
         throw std::invalid_argument("bad input => " + line);
     }
-    // double exchangeRate = getExchangeRate(dateStr);
-    // printResult(dateStr, value, exchangeRate);
+    double exchangeRate = getExchangeRate(dateStr);
+    printResult(dateStr, value, exchangeRate);
 }
 
 
