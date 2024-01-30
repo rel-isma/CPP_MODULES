@@ -1,22 +1,26 @@
 #include <iostream>
-#include <string>
+#include <map>
 
-void trimString(std::string &str)
-{
-    str.erase(0, str.find_first_not_of(" "));
+int main() {
+    std::map<std::string, int32_t> myMap;
 
-    str.erase(str.find_last_not_of(" ")+1 );
-}
+    myMap["One"] = 1;
+    myMap["Two"] = 2;
+    myMap["Four"] = 4;
+    myMap["Five"] = 5;
 
-int main()
-{
-    std::string exampleString = "    Hello, World!    ";
+    std::string keyToFind = "Three";
 
-    std::cout << "Original String: \"" << exampleString << "\"" << std::endl;
+    // Using lower_bound to find the first element with a key not less than keyToFind
+    std::map<std::string, int>::iterator it = myMap.lower_bound(keyToFind);
 
-    trimString(exampleString);
-
-    std::cout << "Trimmed String: \"" << exampleString << "\"" << std::endl;
+    if (it != myMap.end()) {
+        std::cout << "Key not less than or equal to " << keyToFind << ": " << it->first << ", " << it->second << std::endl;
+    } else {
+        std::cout << "No key found not less than or equal to " << keyToFind << std::endl;
+    }
 
     return 0;
 }
+
+
