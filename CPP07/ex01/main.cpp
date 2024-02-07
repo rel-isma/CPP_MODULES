@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:53:32 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/21 18:50:39 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/07 20:13:32 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void print(const T &element)
 
 int main()
 {
-    int intArray[] = {1, 2, 3, 4, 5}; 
+    int *intArray = NULL;
 
     std::cout << "IntArray: ";
-    iter(intArray, (sizeof(intArray) / sizeof(int)), print<int>);
+    iter(intArray, 6, print<int>);
     std::cout << std::endl;
 
     double doubleArray[] = {1.1, 2.2, 3.3, 4.4, 5.5};
