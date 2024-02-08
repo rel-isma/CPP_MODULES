@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:13:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/07 23:01:03 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/08 19:12:37 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void BitcoinExchange::processFirstLine(std::string &line)
     line.erase(line.find_last_not_of(" ") + 1);
     if (line != "date | value")
     {
-        throw std::invalid_argument("bad input no title => " + line);
+        throw std::invalid_argument("bad input: no title ");
     }
 }
 
@@ -47,8 +47,17 @@ void BitcoinExchange::readExchangeRates(const std::string &exchangeRatesFilename
     }
 
     std::string line;
+    if (std::getline(file, line))
+    {
+        if (line != "date,exchange_rate")
+        {
+            throw std::invalid_argument("bad input: no title");
+        }
+    }
     while (std::getline(file, line))
     {
+        std::cout << line << std::endl;
+        exit(0);
         std::stringstream iss(line);
         std::string date;
         double rate = 0.0;
@@ -67,7 +76,8 @@ void BitcoinExchange::processInput()
     
     std::string line;
     std::getline(inputFile, line);
-
+    if (line.empty())
+        return;
     if (line == "date | value")
         throw std::invalid_argument("bad input : double => " + line);
     else
@@ -96,83 +106,73 @@ void BitcoinExchange::processInput()
 
 void ft_check_year(std::string year, std::string date)
 {
+    char *str;
+    long yearlong;
+    yearlong = std::strtol(year.c_str(), &str, 10);
+    if (*str != '\0')
+        throw std::invalid_argument("bad input => " + date);
     if (year.size() != 4)
-    {
         throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(year.c_str()) < 2009 || std::atoi(year.c_str()) > 2022)
-    {
+    if (yearlong < 2009)
         throw std::invalid_argument("bad input => " + date);
-    }
 }
 void ft_check_month(std::string month)
 {
-    if (month.size() != 2)
-    {
-        throw std::invalid_argument("bad input => " + month);
-    }
-    if (std::atoi(month.c_str()) < 1 || std::atoi(month.c_str()) > 12)
-    {
+    char *str;
+    long monthlong;
+    monthlong = std::strtol(month.c_str(), &str, 10);
+    if (*str != '\0')
         throw std::invalid_argument("bad input in month => " + month);
-    }
+    if (month.size() != 2)
+        throw std::invalid_argument("bad input in month => " + month);
+    if (monthlong < 1 || monthlong > 12)
+        throw std::invalid_argument("bad input in month => " + month);
 }
-void ft_check_day(std::string day , std::string month, std::string date)
+
+void ft_check_day(std::string day , std::string month, std::string date, std::string year)
 {
+    int leapYear = 0;
+    char *str;
+    long daylong;
+    daylong = std::strtol(day.c_str(), &str, 10);
+    if (*str != '\0')
+        throw std::invalid_argument("bad input => " + date);
+    char *str2;
+    long monthlong;
+    monthlong = std::strtol(month.c_str(), &str2, 10);
+    if (*str2 != '\0')
+        throw std::invalid_argument("bad input => " + date);
     if (day.size() != 2)
-    {
         throw std::invalid_argument("bad input => " + day);
-    }
-    if (std::atoi(day.c_str()) < 1 || std::atoi(day.c_str()) > 31)
-    {
+    if (daylong < 1 || daylong > 31)
         throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 1 && std::atoi(day.c_str()) > 31)
+    leapYear = std::strtol(year.c_str(), NULL, 10);
+    if ((leapYear % 4 == 0 && leapYear % 100 != 0) || leapYear % 400 == 0)
+        leapYear = 1;
+    else
+        leapYear = 0;
+    if (monthlong == 2)
     {
-        throw std::invalid_argument("bad input => " + date);
+        if (leapYear == 1)
+        {
+            if (daylong > 29)
+                throw std::invalid_argument("bad input => " + date);
+        }
+        else
+        {
+            if (daylong > 28)
+                throw std::invalid_argument("bad input => " + date);
+        }
     }
-    if (std::atoi(month.c_str()) == 2 && std::atoi(day.c_str()) > 29)
+    if (monthlong == 1 || monthlong == 3 || monthlong == 5 || monthlong == 7 || monthlong == 8 || monthlong == 10 || monthlong == 12)
     {
-        throw std::invalid_argument("bad input => " + date);
+        if (daylong > 31)
+            throw std::invalid_argument("bad input => " + date);
     }
-    if (std::atoi(month.c_str()) == 3 && std::atoi(day.c_str()) > 31)
+    if (monthlong == 4 || monthlong == 6 || monthlong == 9 || monthlong == 11)
     {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 4 && std::atoi(day.c_str()) > 30)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 5 && std::atoi(day.c_str()) > 31)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 6 && std::atoi(day.c_str()) > 30)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 7 && std::atoi(day.c_str()) > 31)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 8 && std::atoi(day.c_str()) > 31)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 9 && std::atoi(day.c_str()) > 30)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 10 && std::atoi(day.c_str()) > 31)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 11 && std::atoi(day.c_str()) > 30)
-    {
-        throw std::invalid_argument("bad input => " + date);
-    }
-    if (std::atoi(month.c_str()) == 12 && std::atoi(day.c_str()) > 31)
-    {
-        throw std::invalid_argument("bad input => " + date);
+        if (daylong > 30)
+            throw std::invalid_argument("bad input => " + date);
     }
 }
 
@@ -190,7 +190,7 @@ void ft_check_date(std::string date)
     std::getline(iss, day, '-');
     ft_check_year(year, date);
     ft_check_month(month);
-    ft_check_day(day, month, date);
+    ft_check_day(day, month, date, year);
 }
 
 double BitcoinExchange::getExchangeRate(const std::string &dateStr) const
@@ -209,7 +209,7 @@ double BitcoinExchange::getExchangeRate(const std::string &dateStr) const
     throw std::out_of_range("Exchange rate not available for the specified date: " + dateStr);
 }
 
-int checkWhiteSpace(std::string str)
+int BitcoinExchange::checkWhiteSpace(std::string str)
 {
     int count = 0;
     int size = str.size();
@@ -232,12 +232,14 @@ void BitcoinExchange::processLine(const std::string &line)
         throw std::invalid_argument("bad input => " + line);
     if (line.find('|') == std::string::npos)
         throw std::invalid_argument("bad input => " + line);
+    
     if (std::getline(iss, dateStr, '|'))
     {
-        if (checkWhiteSpace(dateStr) != 1)
+        if (checkWhiteSpace(dateStr) != 1 || dateStr.size() != 11)
             throw std::invalid_argument("bad input => " + line);
         if (dateStr.back() != ' ')
             throw std::invalid_argument("bad input => " + line);
+        
         dateStr.erase(dateStr.find_last_not_of(" ") + 1);
         ft_check_date(dateStr);
         if (std::getline(iss, valueStr))
@@ -246,11 +248,11 @@ void BitcoinExchange::processLine(const std::string &line)
                 throw std::invalid_argument("bad input =>> " + line);
             if (valueStr.front() != ' ')
                 throw std::invalid_argument("bad input => " + line);
-            std::stringstream valueIss(valueStr);
-            if (!(valueIss >> value)) {
-                throw std::invalid_argument("bad input => " + dateStr + valueStr);
+            char *str;
+            value = std::strtod(valueStr.c_str(), &str);
+            if (*str != '\0') {
+                throw std::invalid_argument("bad input => " + line);
             }
-
             if (value > 1000) {
                 throw std::out_of_range("too large a number.");
             }
