@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/28 18:31:18 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/09 00:41:58 by rel-isma         ###   ########.fr       */
+/*   Created: 2024/02/09 00:24:10 by rel-isma          #+#    #+#             */
+/*   Updated: 2024/02/09 00:42:52 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
-#include <iostream>
+#ifndef RPN_HPP
+#define RPN_HPP
 
-int main(int argc, char *argv[])
+#include <stack>
+#include <string>
+
+class RPN
 {
-    if (argc != 2)
-    {
-        std::cerr << "Usage: " << argv[0] << " <RPN expression>" << std::endl;
-        return 1;
-    }
-}
+    
+};
+
+#endif // RPN_HPP
