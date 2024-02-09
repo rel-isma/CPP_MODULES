@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:12:26 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/08 17:44:22 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:33:38 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ class BitcoinExchange
         void printResult(const std::string &date, double value, double exchangeRate) const;
 
     public:
+        BitcoinExchange();
         BitcoinExchange(const std::string &inputFilename);
+        BitcoinExchange(const BitcoinExchange &bitcoinExchange);
+        BitcoinExchange &operator=(const BitcoinExchange &bitcoinExchange);
+        ~BitcoinExchange();
 
         void processInput();
 

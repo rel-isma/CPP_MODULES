@@ -6,23 +6,24 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 00:24:10 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/09 15:22:50 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:32:52 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// RPN.hpp
 #ifndef RPN_HPP
 #define RPN_HPP
 
 #include <stack>
 #include <string>
+#include <iostream>
+#include <sstream>
 
 class RPN
 {
     private:
         std::string expression;
         std::stack<int> operandStack;
-
+        
         bool isOperator(char c);
         void performOperation(char op);
 

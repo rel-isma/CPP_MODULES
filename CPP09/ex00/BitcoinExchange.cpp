@@ -6,12 +6,31 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:13:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/08 19:12:37 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:34:50 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
+BitcoinExchange::BitcoinExchange() : inputFile("") {}
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &bitcoinExchange)
+{
+    *this = bitcoinExchange;
+}
+
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &bitcoinExchange)
+{
+    if (this == &bitcoinExchange)
+        return *this;
+    this->exchangeRates = bitcoinExchange.exchangeRates;
+    return *this;
+}
+
+BitcoinExchange::~BitcoinExchange()
+{
+    inputFile.close();
+}
 void BitcoinExchange::processFirstLine(std::string &line)
 {
     line.erase(0, line.find_first_not_of(" "));
