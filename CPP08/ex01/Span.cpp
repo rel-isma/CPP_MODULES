@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:53:49 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/01/26 16:12:41 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/09 22:25:16 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int Span::longestSpan() const
 
 void Span::addNumbers(const std::vector<int> &nums)
 {
+    
     if (this->numbers.size() + nums.size() > this->N)
         throw std::runtime_error("Error: Span is full");
     this->numbers.insert(this->numbers.end(), nums.begin(), nums.end());
@@ -70,4 +71,5 @@ void Span::addNumbers(const std::vector<int> &nums)
 
 Span::~Span()
 {
+    
 }
