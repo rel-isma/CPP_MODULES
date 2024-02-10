@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:38:04 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/10 19:15:27 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:26:17 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ PmergeMe::PmergeMe(int argc, char *argv[])
         sequenceVector.push_back(number);
         sequenceList.push_back(number);
     }
-
-    std::cout << "vector: ";
-    for (std::vector<int>::iterator it = sequenceVector.begin(); it != sequenceVector.end(); it++)
-        std::cout << *it << " "; 
-    std::cout << std::endl;
-    std::cout << "list: ";
-    for (std::list<int>::iterator it = sequenceList.begin(); it != sequenceList.end(); it++)
-        std::cout << *it << " ";
-    std::cout << std::endl;
 }
 
 void PmergeMe::displaySequence(const std::string &message)
@@ -69,8 +60,54 @@ void PmergeMe::createPairVector()
 	size = this->sequenceVector.size() / 2;
 	while (size != 0)
 	{
-		this->sequenceVector.push_back(std::make_pair(this->sequenceVector.at(i), this->sequenceVector.at(i + 1)));
+		this->sequencePairVector.push_back(std::make_pair(this->sequenceVector.at(i), this->sequenceVector.at(i + 1)));
 		i += 2;
 		size--;
 	}
 }
+
+
+
+void PmergeMe::sortPairVector()
+{
+    int tmp;
+
+    for (unsigned int i = 0; i < this->sequencePairVector.size(); i++)
+    {
+        if (this->sequencePairVector.at(i).first < this->sequencePairVector.at(i).second)
+        {
+            tmp = this->sequencePairVector.at(i).first;
+            this->sequencePairVector.at(i).first = this->sequencePairVector.at(i).second;
+            this->sequencePairVector.at(i).second = tmp;
+        }
+    }
+    std::sort(this->sequencePairVector.begin(), this->sequencePairVector.end());
+}
+
+
+
+void PmergeMe::createMainChainAndPend()
+{
+    for (unsigned int i = 0; i < this->sequencePairVector.size(); i++)
+    {
+        this->mainChain.push_back(this->sequencePairVector.at(i).first);
+        this->pend.push_back(this->sequencePairVector.at(i).second);
+    }
+}
+
+int PmergeMe::jacobsthal(int n)
+{
+    if (n == 0)
+        return 0;
+    if (n == 1)
+        return 1;
+    return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
+}
+
+void PmergeMe::performSort()
+{
+    createPairVector();
+    sortPairVector();
+    createMainChainAndPend();
+}
+
