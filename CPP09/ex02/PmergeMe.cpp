@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:38:04 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/10 23:26:17 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:48:26 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,36 @@ int PmergeMe::jacobsthal(int n)
     return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
 }
 
+void PmergeMe::insertToMC()
+{
+    int i;
+    int j;
+    int k;
+
+    i = 0;
+    j = 0;
+    k = 0;
+    while (i < this->sequenceVector.size())
+    {
+        if (i % 2 == 0)
+        {
+            this->sequenceVector.at(i) = this->mainChain.at(j);
+            j++;
+        }
+        else
+        {
+            this->sequenceVector.at(i) = this->pend.at(k);
+            k++;
+        }
+        i++;
+    }
+}
+
 void PmergeMe::performSort()
 {
     createPairVector();
     sortPairVector();
     createMainChainAndPend();
+    insertToMC();
 }
 
