@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:38:04 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/11 16:48:26 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/11 22:33:44 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,31 +104,81 @@ int PmergeMe::jacobsthal(int n)
     return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
 }
 
-void PmergeMe::insertToMC()
+void PmergeMe::generateJacob()
 {
-    int i;
-    int j;
-    int k;
+    size_t size;
+    size_t jcobSIndex;
+    int index;
 
-    i = 0;
-    j = 0;
-    k = 0;
-    while (i < this->sequenceVector.size())
+    size = this->pend.size();
+    index = 3;
+    while (index < size)
     {
-        if (i % 2 == 0)
-        {
-            this->sequenceVector.at(i) = this->mainChain.at(j);
-            j++;
-        }
-        else
-        {
-            this->sequenceVector.at(i) = this->pend.at(k);
-            k++;
-        }
-        i++;
+        jcobSIndex = this->jacobsthal(index);
+        this->jacobS.push_back(jcobSIndex);
+        index++;
     }
 }
 
+void PmergeMe::generatePositions()
+{
+    size_t value;
+    size_t pos;
+    size_t lastPos;
+    size_t i;
+
+    if (this->pend.empty())
+        return;
+    this->generateJacob();
+    lastPos = 1;
+    value = 1;
+    i = 0;
+
+    while (i < this->jacobS.size())
+    {
+        value = this->jacobS.at(i);
+        this->positions.push_back(value);
+
+        pos  = value - 1;
+        while (lastPos < pos)
+        {
+            this->positions.push_back(pos);
+            pos++;
+        }
+        lastPos = value;
+        i++;
+    }
+    while (value++ < this->pend.size())
+    {
+        this->positions.push_back(value);
+    }
+}
+
+void PmergeMe::insertToMC()
+{
+    int target;
+    size_t endPos;
+    size_t addedCount;
+    size_t pos;
+
+    this->generatePositions();
+    addedCount = 0;
+    for (std::vector<int>::iterator it = this->positions.begin(); it != this->positions.end(); it++)
+    {
+        target = this->pend.at(*it);
+        endPos = *it + addedCount;
+        pos = this->mainChain.lower_bound(target);
+        this->mainChain.insert(this->mainChain.begin() + pos, target);
+        addedCount++;
+    }
+    if (this->sequenceVector.size() % 2 != 0)
+    {
+        target = this->sequenceVector.at(this->sequenceVector.size() - 1);
+        // pos = this->binarySearch(this->mainChain, target, 0, this->mainChain.size() - 1);
+        pos = this->mainChain.lower_bound(target);
+        this->mainChain.insert(this->mainChain.begin() + pos, target);
+    }
+}
 void PmergeMe::performSort()
 {
     createPairVector();
