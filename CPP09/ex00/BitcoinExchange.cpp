@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:13:05 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/09 16:34:50 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:17:54 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ BitcoinExchange::~BitcoinExchange()
 {
     inputFile.close();
 }
+
 void BitcoinExchange::processFirstLine(std::string &line)
 {
     line.erase(0, line.find_first_not_of(" "));
@@ -75,8 +76,6 @@ void BitcoinExchange::readExchangeRates(const std::string &exchangeRatesFilename
     }
     while (std::getline(file, line))
     {
-        std::cout << line << std::endl;
-        exit(0);
         std::stringstream iss(line);
         std::string date;
         double rate = 0.0;
@@ -295,5 +294,5 @@ void BitcoinExchange::processLine(const std::string &line)
 
 void BitcoinExchange::printResult(const std::string &date, double value, double exchangeRate) const
 {
-    std::cout << date << " => " << value << " = " << value * exchangeRate << std::endl;
+    std::cout << date << " => " << value << " = " << std::fixed << (value * exchangeRate) << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:38:01 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/13 19:08:36 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:57:53 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,13 @@
 #include <list>
 #include <algorithm>
 
-class Timer {
-private:
-    clock_t start_time;
-
-public:
-    void start() {
-        start_time = clock();
-    }
-
-    double elapsed() const {
-        return static_cast<double>(clock() - start_time) / CLOCKS_PER_SEC;
-    }
-};
 
 class PmergeMe
 {
     private:
     /*---------------this for vector---------------------------*/
+
+        // attributes
         std::vector<int> sequenceVector;
         std::vector<std::pair<int, int> > sequencePairVector;
         std::vector<int> mainChain;
@@ -43,6 +32,7 @@ class PmergeMe
         std::vector<int> jacobS;
         std::vector<int> positions;
 
+        // methods
         void getSequenceVector(int argc, char *argv[]);
         void createPairVector();
         void sortPairVector();
@@ -51,9 +41,11 @@ class PmergeMe
         int jacobsthalVector(int n);
         void generateJacobVector();
         void generatePositionsVector();
-    /*----------------------------------------------------------*/
+    /*-----------------------------------------------------------*/
     
-    /*---------------this for list---------------------------*/
+    /*---------------this for list-------------------------------*/
+
+        // attributes
         std::list<int> sequenceList;
         std::list<std::pair<int, int> > sequencePairList;
         std::list<int> mainChainList;
@@ -61,6 +53,7 @@ class PmergeMe
         std::list<int> jacobSList;
         std::list<int> positionsList;
 
+        // methods
         void getSequenceList(int argc, char *argv[]);
         void createPairList();
         void sortPairList();
@@ -69,9 +62,10 @@ class PmergeMe
         int jacobsthalList(int n);
         void generateJacobList();
         void generatePositionsList();
-    /*----------------------------------------------------------*/
+    /*------------------------------------------------------------*/
 
     public:
+        // constructors and destructors
         PmergeMe();
         PmergeMe(const PmergeMe &pmergeMe);
         PmergeMe &operator=(const PmergeMe &pmergeMe);

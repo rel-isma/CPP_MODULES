@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:12:26 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/09 16:33:38 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:01:56 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <map>
 
 class BitcoinExchange
