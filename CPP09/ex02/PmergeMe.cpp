@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:38:04 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/13 05:22:00 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:14:05 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,16 +219,19 @@ void PmergeMe::insertToMCVector()
 
 void PmergeMe::performSortIVector(int argc, char *argv[])
 {
+    Timer timer;
     getSequenceVector(argc, argv);
     if (this->sequenceVector.size() == 1)
     {
         this->mainChain.push_back(this->sequenceVector.at(0));
         return;
     }
+    timer.start();
     createPairVector();
     sortPairVector();
     createMainChainAndPendVector();
     insertToMCVector();
+    std::cout << "vector>> " << std::fixed << timer.elapsed() << std::endl;
 }
 
 /*-----------Member Function-----------------for list--------------------*/
@@ -407,14 +410,18 @@ void PmergeMe::insertToMCList()
 
 void PmergeMe::performSortIList(int argc, char *argv[])
 {
+    Timer timer;
     getSequenceList(argc, argv);
     if (this->sequenceList.size() == 1)
     {
         this->mainChainList.push_back(this->sequenceList.front());
         return;
     }
+
+    timer.start();
     createPairList();
     sortPairList();
     createMainChainAndPendList();
     insertToMCList();
+    std::cout << "list>> " << std::fixed << timer.elapsed() << std::endl;
 }

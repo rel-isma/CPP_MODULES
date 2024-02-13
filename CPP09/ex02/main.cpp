@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 21:47:26 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/13 05:06:33 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:16:53 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     clock_t start, end, startList, endList;
     double cpu_time_usedList;
     double cpu_time_used;
-    start = clock();
     PmergeMe pmergeMe;
+    start = clock();
     pmergeMe.performSortIVector(argc, argv);
     end = clock();
 
@@ -30,11 +30,11 @@ int main(int argc, char *argv[])
 
 
     // display the seque
-    pmergeMe.displaySequenceInfo();
+    // pmergeMe.displaySequenceInfo();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    std::cout << "Time to process a range of  " << argc - 1 << " elements with std::vector : " << std::fixed << cpu_time_used << " us" << std::endl;
+    std::cout << "Time to process a range of  " << argc - 1 << " elements with std::vector : " << std::fixed << cpu_time_used << " s" << std::endl;
     cpu_time_usedList = ((double) (endList - startList)) / CLOCKS_PER_SEC;
-    std::cout << "Time to process a range of  " << argc - 1 << " elements with std::list : " << std::fixed << cpu_time_usedList << " us" << std::endl;
+    std::cout << "Time to process a range of  " << argc - 1 << " elements with std::list : " << std::fixed << cpu_time_usedList << " s" << std::endl;
 
     return 0;
 }

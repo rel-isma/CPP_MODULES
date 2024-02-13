@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:38:01 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/13 05:21:44 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:08:36 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 #include <vector>
 #include <list>
 #include <algorithm>
+
+class Timer {
+private:
+    clock_t start_time;
+
+public:
+    void start() {
+        start_time = clock();
+    }
+
+    double elapsed() const {
+        return static_cast<double>(clock() - start_time) / CLOCKS_PER_SEC;
+    }
+};
 
 class PmergeMe
 {
