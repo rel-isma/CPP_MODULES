@@ -6,7 +6,7 @@
 /*   By: rel-isma <rel-isma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:38:01 by rel-isma          #+#    #+#             */
-/*   Updated: 2024/02/11 22:02:02 by rel-isma         ###   ########.fr       */
+/*   Updated: 2024/02/13 05:21:44 by rel-isma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 #include <vector>
 #include <list>
 #include <algorithm>
-#include <chrono>
 
 class PmergeMe
 {
     private:
+    /*---------------this for vector---------------------------*/
         std::vector<int> sequenceVector;
         std::vector<std::pair<int, int> > sequencePairVector;
         std::vector<int> mainChain;
@@ -29,19 +29,44 @@ class PmergeMe
         std::vector<int> jacobS;
         std::vector<int> positions;
 
-        void displaySequence(const std::string &message);
-        void displayTime(const std::string &containerType, std::chrono::microseconds duration);
+        void getSequenceVector(int argc, char *argv[]);
         void createPairVector();
         void sortPairVector();
-        void createMainChainAndPend();
-        void insertToMC();
-        int jacobsthal(int n);
-        void generateJacob();
-        void generatePositions();
+        void createMainChainAndPendVector();
+        void insertToMCVector();
+        int jacobsthalVector(int n);
+        void generateJacobVector();
+        void generatePositionsVector();
+    /*----------------------------------------------------------*/
+    
+    /*---------------this for list---------------------------*/
+        std::list<int> sequenceList;
+        std::list<std::pair<int, int> > sequencePairList;
+        std::list<int> mainChainList;
+        std::list<int> pendList;
+        std::list<int> jacobSList;
+        std::list<int> positionsList;
+
+        void getSequenceList(int argc, char *argv[]);
+        void createPairList();
+        void sortPairList();
+        void createMainChainAndPendList();
+        void insertToMCList();
+        int jacobsthalList(int n);
+        void generateJacobList();
+        void generatePositionsList();
+    /*----------------------------------------------------------*/
 
     public:
-        PmergeMe(int argc, char *argv[]);
-        void performSort();
+        PmergeMe();
+        PmergeMe(const PmergeMe &pmergeMe);
+        PmergeMe &operator=(const PmergeMe &pmergeMe);
+        ~PmergeMe();
+
+
+        void performSortIVector(int argc, char *argv[]);
+        void performSortIList(int argc, char *argv[]);
+        void displaySequenceInfo();
 
 };
 
